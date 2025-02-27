@@ -36,7 +36,6 @@ export default function Home() {
   const [pins, setPins] = useState<Pin[]>([]);
   const [boards, setBoards] = useState<Board[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -138,36 +137,7 @@ export default function Home() {
     }
   };
 
-  const handleCategoryClick = async (category: string) => {
-    if (!session?.accessToken) return;
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/pins/?category=${category}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.accessToken}`,
-        }
-      });
 
-      if (response.status === 401) {
-        signOut();
-        router.push('/login');
-        return;
-      }
-
-      const data = await response.json();
-      if (!response.ok) throw new Error('Failed to fetch data');
-      if (data.error) {
-        console.error('Error fetching category pins:', data.error);
-        return;
-      }
-
-      setPins(data.pins);
-      setSelectedCategory(category);
-    } catch (error) {
-      console.error('Category fetch error:', error);
-    }
-  };
 
   if (status === 'loading') {
     return <div className='spinner'></div>;

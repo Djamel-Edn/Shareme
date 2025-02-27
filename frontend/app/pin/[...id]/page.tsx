@@ -32,9 +32,8 @@ export default function PinDetails() {
     category: "",
     image: null as string | File | null,
   });
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const { data: session, status } = useSession();
+
+  const { data: session } = useSession();
   useEffect(() => {
     const fetchPinDetails = async () => {
       if (!session?.accessToken) return ;
@@ -60,9 +59,6 @@ export default function PinDetails() {
         });
       } catch (error) {
         console.error("Fetch error:", error);
-        setError("Failed to load pin details.");
-      } finally {
-        setIsLoading(false);
       }
     };  
 
@@ -99,7 +95,6 @@ export default function PinDetails() {
       setIsEditing(false);
     } catch (error) {
       console.error("Save error:", error);
-      setError("Failed to save pin.");
     }
   };
 

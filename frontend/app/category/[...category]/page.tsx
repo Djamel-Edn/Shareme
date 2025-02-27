@@ -64,7 +64,7 @@ export default function CategoryPage() {
     };
 
     fetchData();
-  }, [session, category]);
+  }, [session, category,router]);
 
   if (status === 'loading') {
     return <div className='spinner'></div>;

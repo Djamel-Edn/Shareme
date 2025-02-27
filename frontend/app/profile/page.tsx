@@ -54,11 +54,8 @@ export default function Profile() {
   const [boardForm, setBoardForm] = useState({ name: "", pins: [] as number[] });
   const [displayPins, setDisplayPins] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [selectedPins, setSelectedPins] = useState<number[]>([]);
   const [isBoardSelectionModalOpen, setIsBoardSelectionModalOpen] = useState(false);
   const [selectedPinForBoard, setSelectedPinForBoard] = useState<number | null>(null);
-  const [isEditingPin,setIsEditingPin]=useState<Pin | null>(null);
-  const [isEditingBoard, setIsEditingBoard] = useState<Board | null>(null);
   useEffect(() => {
     if (status === "unauthenticated") {
       window.location.href = '/login';
@@ -336,7 +333,6 @@ export default function Profile() {
         fetchUserProfile();
         setIsCreatingBoard(false);
         setBoardForm({ name: "", pins: [] });
-        setSelectedPins([]);
       }
     } catch (error) {
       console.error("Error creating board:", error);
@@ -410,7 +406,6 @@ export default function Profile() {
 
       if (response.ok) {
         fetchUserProfile();
-        setIsEditingPin(null);
       }
     } catch (error) {
       console.error("Error updating pin:", error);
@@ -437,7 +432,6 @@ export default function Profile() {
   
       if (response.ok) {
         fetchUserProfile();
-        setIsEditingBoard(null);
       }
     } catch (error) {
       console.error("Error updating board:", error);
@@ -447,12 +441,7 @@ export default function Profile() {
   };
   
 
-  const togglePinSelection = (pinId: number) => {
-    setSelectedPins((prev) =>
-      prev.includes(pinId) ? prev.filter((id) => id !== pinId) : [...prev, pinId]
-    );
-  };
-
+ 
   if (!user) {
     return <div className="spinner"></div>;
   }
@@ -554,7 +543,7 @@ export default function Profile() {
 
       <div className="flex justify-center space-x-4 mt-6">
         <button
-          onClick={() => { setDisplayPins(true); setIsCreatingBoard(false); setIsEditingBoard(null); }}
+          onClick={() => { setDisplayPins(true); setIsCreatingBoard(false); }}
           className={`p-3 rounded-lg shadow-md transition duration-300 ${
             displayPins ? "bg-blue-500 text-white" : "bg-gray-200 hover:bg-gray-300"
           }`}
@@ -562,7 +551,7 @@ export default function Profile() {
           Pins
         </button>
         <button
-          onClick={() => { setDisplayPins(false); setIsCreatingPin(false); setIsEditingPin(null); }}
+          onClick={() => { setDisplayPins(false); setIsCreatingPin(false);  }}
           className={`p-3 rounded-lg shadow-md transition duration-300 ${
             !displayPins ? "bg-blue-500 text-white" : "bg-gray-200 hover:bg-gray-300"
           }`}
@@ -580,12 +569,10 @@ export default function Profile() {
           key={pin.id}
           pin={pin}
           onEdit={(pin) => {
-            setIsEditingPin(pin);
             setPinForm({ title: pin.title, image: pin.image, description: pin.description, category: pin.category });
           }}
           onDelete={handleDeletePin}
           onSave={handleSavePin}
-          onCancel={() => setIsEditingPin(null)}
           onAddToBoard={handleAddToBoard}
         />
       ))}
@@ -605,14 +592,11 @@ export default function Profile() {
         <BoardCard
           key={board.id}
           board={board}
-          allPins={user.pins}
           onEdit={(board) => {
-            setIsEditingBoard(board);
             setBoardForm({ name: board.name, pins: board.pins.map((pin: Pin) => pin.id) });
           }}
           onDelete={handleDeleteBoard}
           onSave={handleSaveBoard}
-          onCancel={() => setIsEditingBoard(null)}
         />
       ))}
     </div>

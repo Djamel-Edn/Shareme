@@ -1,4 +1,4 @@
-// components/Board.tsx
+
 import { FaEdit, FaTrash, FaSave, FaPlus, FaMinus } from "react-icons/fa";
 import { useState } from "react";
 import Link from "next/link";
@@ -15,14 +15,12 @@ interface BoardProps {
     name: string;
     pins: Pin[];
   };
-  allPins: Pin[];
   onEdit: (board: any) => void;
   onDelete: (boardId: number) => void;
   onSave: (updatedBoard: { id: number; name: string; pins: number[] }) => void;
-  onCancel: () => void;
 }
 
-export default function BoardCard({ board, allPins, onEdit, onDelete, onSave, onCancel }: BoardProps) {
+export default function BoardCard({ board, onEdit, onDelete, onSave }: BoardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     id: board.id,
@@ -88,7 +86,6 @@ export default function BoardCard({ board, allPins, onEdit, onDelete, onSave, on
             <button
               onClick={() => {
                 setIsEditing(false);
-                onCancel();
               }}
               className="bg-gray-500 text-white px-4 py-2 rounded shadow hover:bg-gray-600"
             >

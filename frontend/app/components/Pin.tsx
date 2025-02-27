@@ -17,11 +17,10 @@ interface PinProps {
   onEdit: (pin: any) => void;
   onDelete: (pinId: number) => void;
   onSave: (updatedPin: { id: number; title: string; description: string; category: string; image: File | null | string }) => void;
-  onCancel: () => void;
   onAddToBoard: (pinId: number) => void;
 }
 
-export default function PinCard({ pin, onEdit, onDelete, onSave, onCancel, onAddToBoard }: PinProps) {
+export default function PinCard({ pin, onEdit, onDelete, onSave, onAddToBoard }: PinProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<{
     id: number;
@@ -98,7 +97,6 @@ export default function PinCard({ pin, onEdit, onDelete, onSave, onCancel, onAdd
             <button
               onClick={() => {
                 setIsEditing(false);
-                onCancel();
               }}
               className="bg-gray-500 text-white px-4 py-2 rounded shadow hover:bg-gray-600"
             >
