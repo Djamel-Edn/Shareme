@@ -60,8 +60,8 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
 ]
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "https://localhost:3000"
+    "http://shareme-inky.vercel.app",
+    "https://shareme-inky.vercel.app"
 ]
 ROOT_URLCONF = 'backend.urls'   
 CORS_ALLOW_CREDENTIALS = True
@@ -149,7 +149,6 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-GOOGLE_CLIENT_ID="80136897786-otese59ml7pi5k24q393qe6ltiniq8st.apps.googleusercontent.com"
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
