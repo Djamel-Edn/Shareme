@@ -62,7 +62,8 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://shareme-inky.vercel.app",
     "https://shareme-inky.vercel.app",
-    'shareme-ov5p.onrender.com',
+    'http://shareme-ov5p.onrender.com',
+    'https://shareme-ov5p.onrender.com'
 ]
 ROOT_URLCONF = 'backend.urls'   
 CORS_ALLOW_CREDENTIALS = True
