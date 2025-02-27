@@ -14,7 +14,7 @@ interface PinProps {
       profile_picture: string;
     };
   };
-  onEdit: (pin: any) => void;
+  onEdit: (pin: { id: number; title: string; description: string; category: string; image: string; creator: { username: string; profile_picture: string } }) => void;
   onDelete: (pinId: number) => void;
   onSave: (updatedPin: { id: number; title: string; description: string; category: string; image: File | null | string }) => void;
   onAddToBoard: (pinId: number) => void;

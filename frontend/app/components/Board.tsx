@@ -1,5 +1,5 @@
 
-import { FaEdit, FaTrash, FaSave, FaPlus, FaMinus } from "react-icons/fa";
+import { FaEdit, FaTrash, FaSave } from "react-icons/fa";
 import { useState } from "react";
 import Link from "next/link";
 
@@ -15,7 +15,7 @@ interface BoardProps {
     name: string;
     pins: Pin[];
   };
-  onEdit: (board: any) => void;
+  onEdit: (board: { id: number; name: string; pins: Pin[] }) => void;
   onDelete: (boardId: number) => void;
   onSave: (updatedBoard: { id: number; name: string; pins: number[] }) => void;
 }

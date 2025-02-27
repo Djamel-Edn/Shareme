@@ -1,11 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { FaEdit, FaHome, FaPlus, FaTrash } from "react-icons/fa";
+import { FaEdit, FaHome, FaPlus } from "react-icons/fa";
 import { Session } from "next-auth";
 import imageCompression from 'browser-image-compression';
 import PinCard from "../components/Pin";
 import BoardCard from "../components/Board";
+import Link from "next/link";
 
 interface ExtendedSession extends Session {
   user: {
@@ -50,7 +51,7 @@ export default function Profile() {
   const [isEditingBackground, setIsEditingBackground] = useState(false);
   const [isCreatingPin, setIsCreatingPin] = useState(false);
   const [isCreatingBoard, setIsCreatingBoard] = useState(false);
-  const [pinForm, setPinForm] = useState({ title: "", image: null as File | null, description: "", category: "" });
+  const [pinForm, setPinForm] = useState({ title: "", image: null as File | string | null, description: "", category: "" });
   const [boardForm, setBoardForm] = useState({ name: "", pins: [] as number[] });
   const [displayPins, setDisplayPins] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -449,12 +450,12 @@ export default function Profile() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       <div className="absolute z-10 top-4 left-4">
-        <a
-          href="/"
+        <Link
+          href={"/"}
           className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300"
         >
           <FaHome /> Home
-        </a>
+        </Link>
       </div>
       <div
         className="relative h-72 w-full bg-cover bg-center rounded-b-3xl shadow-lg"
@@ -593,7 +594,7 @@ export default function Profile() {
           key={board.id}
           board={board}
           onEdit={(board) => {
-            setBoardForm({ name: board.name, pins: board.pins.map((pin: Pin) => pin.id) });
+            setBoardForm({ name: board.name, pins: board.pins.map((pin) => pin.id) });
           }}
           onDelete={handleDeleteBoard}
           onSave={handleSaveBoard}
