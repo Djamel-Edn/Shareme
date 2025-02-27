@@ -45,7 +45,7 @@ const handler = NextAuth({
           console.error("No access token found in the account object.");
         }
     
-        const response = await fetch(`http://127.0.0.1:8000/api/auth/custom-user/`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/custom-user/`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
