@@ -1,4 +1,5 @@
 import json
+import os
 from rest_framework import status
 from django.conf import settings
 from .models import Pin, CustomUser, Board
@@ -59,7 +60,7 @@ class GoogleLoginView(APIView):
                 print("Unexpected Error:", str(e))
                 return Response({"error": "Unexpected error during token verification"}, status=500)
 
-            if id_info['aud'] != settings.GOOGLE_CLIENT_ID:
+            if id_info['aud'] != os.getenv('GOOGLE_CLIENT_ID'):
                 raise ValueError('Could not verify the Google OAuth token')
 
             google_email = id_info['email']

@@ -69,7 +69,6 @@ export default function CategoryPage() {
   if (status === 'loading') {
     return <div className='spinner'></div>;
   }
-console.log(pins)
   return (
     <div className='flex flex-col min-h-screen'>
       <header className='flex justify-between items-center gap-32 px-4 py-2'>
