@@ -1,7 +1,6 @@
 import json
 import os
 from rest_framework import status
-from django.conf import settings
 from .models import Pin, CustomUser, Board
 from core.serializers import PinSerializer, BoardSerializer
 from rest_framework.response import Response
@@ -52,7 +51,7 @@ class GoogleLoginView(APIView):
                 return Response({"error": "Access token is required"}, status=status.HTTP_400_BAD_REQUEST)
 
             try:
-                id_info = verify_oauth2_token(id_token, Request(), settings.GOOGLE_CLIENT_ID)
+                id_info = verify_oauth2_token(id_token, Request(), os.getenv('GOOGLE_CLIENT_ID'))
             except ValueError as e:
                 print("Error Verifying Token:", str(e))
                 return Response({"error": str(e)}, status=400)
